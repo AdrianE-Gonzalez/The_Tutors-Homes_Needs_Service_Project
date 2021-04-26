@@ -1,3 +1,27 @@
+<?php
+    $conn = mysqli_connect('localhost', 'admin', 'test1','Homes_Needs_Service');
+
+    if(!$conn){
+        echo 'Connection Error: ' . mysqli_connect_error();
+    }
+
+    // Gets Columns From Table Specified
+    $sql = 'SELECT Average_Rating, Distance_From_Address FROM SERVICERS';
+
+    // Stores Columns Into Variable
+    $results= mysqli_query($conn, $sql);
+
+    $HNS = mysqli_fetch_all($results, MYSQLI_ASSOC);
+
+    // Free Database From Memory
+    mysqli_free_result($results);
+
+    // Close Connection
+    mysqli_close($conn);
+
+    print_r($HNS);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -31,7 +55,7 @@
                         <a class="nav-link" href="#">Appointments</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Search</a>
+                            <a class="nav-link active" href="./search.php">Search</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
