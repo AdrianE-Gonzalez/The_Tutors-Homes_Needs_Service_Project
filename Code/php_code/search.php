@@ -19,7 +19,6 @@
     // Close Connection
     mysqli_close($conn);
 
-    print_r($HNS);
 ?>
 
 <!DOCTYPE html>
@@ -139,13 +138,91 @@
                         <hr>
                         <!-- BEGIN SEARCH INPUT -->
                         <div class="input-group">
-                        <input type="text" class="form-control" value="web development">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
-                        </span>
+                        <form action="" method="GET" name="">
+                            <table>
+                                <tr>
+                                    <td><input id="search" type="text" name="search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>" placeholder="Enter your search keywords" class="form-control"/></td>
+                                    <td><input type="submit" name="" value="Search" /><i class="fa fa-search"></i></td>
+                                    
+                                </tr>
+                                
+                            </table>      
+                           
+                            <p>Showing all results matching "<?php echo isset($_GET['search']) ? $_GET['search'] : '';  ?>"</p>
+
+                        </form>
+                        
                         </div>
+                        <?php 
+
+                            $link = mysqli_connect('localhost', 'admin', 'test1','Homes_Needs_Service');
+                            if(isset($_REQUEST["search"])){
+                                // Prepare a select statement
+                                $sql = "SELECT SERVICERS.Average_Rating, SERVICERS.Distance_From_Address, SERVICES.Service
+                                        FROM SERVICERS, SERVICES, PROVIDESSERVICE
+                                        WHERE SERVICES.Service LIKE ? AND
+                                            PROVIDESSERVICE.Servicer_ID= SERVICERS.Servicer_ID AND
+                                            PROVIDESSERVICE.Service= SERVICES.Service";
+                                // Check connection
+                                if($link === false){
+                                    die("ERROR: Could not connect. " . mysqli_connect_error());
+                                }
+                                if($stmt = mysqli_prepare($link, $sql)){
+                                    // Bind variables to the prepared statement as parameters
+                                    mysqli_stmt_bind_param($stmt, "s", $param_term);
+                                    
+                                    // Set parameters
+                                    $param_term = $_REQUEST["search"] . '%';
+                                    
+                                    // Attempt to execute the prepared statement
+                                    if(mysqli_stmt_execute($stmt)){
+                                        $result = mysqli_stmt_get_result($stmt);
+                                        ?>
+                                        <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col"></th>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Rating</th>
+                                                            <th scope="col">Distance From Address</th>
+                                                            </tr>
+                                                        </thead>
+                                      <?php  // Check number of rows in the result set
+                                        if(mysqli_num_rows($result) > 0){
+                                            // Fetch result rows as an associative array
+                                            while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                                                ?>
+    
+                                                        <tbody><tr>
+                                                        <td class="number text-center">1</td>
+                                                        <td class="image"><img src="https://via.placeholder.com/400x300/FF8C00" alt=""></td>
+                                                        <td class="product"><strong><?php echo htmlspecialchars($row['Service']); ?></strong><br>This is the product description.</td>
+                                                        <td class="rate text-right"><?php echo htmlspecialchars($row['Average_Rating']); ?></td>
+                                                        <td class="price text-right"><?php echo htmlspecialchars($row['Distance_From_Address']); ?></td>
+                                                        </tr>
+                                                        
+                                                    </tbody>
+                                    <?php
+                                            }?>
+                                            </table>
+                                                    </div>
+                                        <?php
+                                        } else{
+                                            echo "<p>No matches found</p>";
+                                        }
+                                    } else{
+                                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                                    }
+                                }
+                                // Close statement
+                                mysqli_stmt_close($stmt);
+                            }
+                            // close connection
+                            mysqli_close($link);
+                        ?>
                         <!-- END SEARCH INPUT -->
-                        <p>Showing all results matching "web development"</p>
                         
                         <div class="padding"></div>
                         
@@ -175,7 +252,7 @@
                         </div>
                         
                         <!-- BEGIN TABLE RESULT -->
-                        <div class="table-responsive">
+                        <!-- <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -186,64 +263,18 @@
                                 <th scope="col">Distance From Address</th>
                                 </tr>
                             </thead>
-                            <tbody><tr>
-                            <td class="number text-center">1</td>
-                            <td class="image"><img src="https://via.placeholder.com/400x300/FF8C00" alt=""></td>
-                            <td class="product"><strong>Product 1</strong><br>This is the product description.</td>
-                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                            <td class="price text-right">$350</td>
-                            </tr>
-                            <tr>
-                            <td class="number text-center">2</td>
-                            <td class="image"><img src="https://via.placeholder.com/400x300/5F9EA0" alt=""></td>
-                            <td class="product"><strong>Product 2</strong><br>This is the product description.</td>
-                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span></td>
-                            <td class="price text-right">$1,050</td>
-                            </tr>
-                            <tr>
-                            <td class="number text-center">3</td>
-                            <td class="image"><img src="https://via.placeholder.com/400x300" alt=""></td>
-                            <td class="product"><strong>Product 3</strong><br>This is the product description.</td>
-                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></span></td>
-                            <td class="price text-right">$550</td>
-                            </tr>
-                            <tr>
-                            <td class="number text-center">4</td>
-                            <td class="image"><img src="https://via.placeholder.com/400x300/8A2BE2" alt=""></td>
-                            <td class="product"><strong>Product 4</strong><br>This is the product description.</td>
-                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></span></td>
-                            <td class="price text-right">$330</td>
-                            </tr>
-                            <tr>
-                            <td class="number text-center">5</td>
-                            <td class="image"><img src="https://via.placeholder.com/400x300" alt=""></td>
-                            <td class="product"><strong>Product 5</strong><br>This is the product description.</td>
-                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span></td>
-                            <td class="price text-right">$540</td>
-                            </tr>
-                            <tr>
-                            <td class="number text-center">6</td>
-                            <td class="image"><img src="https://via.placeholder.com/400x300/6495ED" alt=""></td>
-                            <td class="product"><strong>Product 6</strong><br>This is the product description.</td>
-                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                            <td class="price text-right">$870</td>
-                            </tr>
-                            <tr>
-                            <td class="number text-center">7</td>
-                            <td class="image"><img src="https://via.placeholder.com/400x300/DC143C" alt=""></td>
-                            <td class="product"><strong>Product 7</strong><br>This is the product description.</td>
-                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span></td>
-                            <td class="price text-right">$620</td>
-                            </tr>
-                            <tr>
-                            <td class="number text-center">8</td>
-                            <td class="image"><img src="https://via.placeholder.com/400x300/9932CC" alt=""></td>
-                            <td class="product"><strong>Product 8</strong><br>This is the product description.</td>
-                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                            <td class="price text-right">$1,550</td>
-                            </tr>
+                            <?php //foreach($HNS as $hns){ ?>
+                                <tbody><tr>
+                                <td class="number text-center">1</td>
+                                <td class="image"><img src="https://via.placeholder.com/400x300/FF8C00" alt=""></td>
+                                <td class="product"><strong>Product 1</strong><br>This is the product description.</td>
+                                <td class="rate text-right"><?php// echo htmlspecialchars($hns['Average_Rating']); ?></td>
+                                <td class="price text-right"><?php// echo htmlspecialchars($hns['Distance_From_Address']); ?></td>
+                                </tr>
+                            <?php //} ?>
+                            
                         </tbody></table>
-                        </div>
+                        </div> -->
                         <!-- END TABLE RESULT -->
                         
                         <!-- BEGIN PAGINATION -->
