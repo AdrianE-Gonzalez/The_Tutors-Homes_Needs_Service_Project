@@ -51,7 +51,7 @@
                             <a class="nav-link" href="#">Whats New</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Appointments</a>
+                        <a class="nav-link" href="./appointments.php">Appointments</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./search.php">Search</a>
