@@ -1,7 +1,31 @@
-It just needs to list current and past appointments. 
-It links from a page to confirm am on appointment that in turn links from the search page. 
-Add a link to a review page where a person can write a review. I'm using $_SESSIONS as soon as a person signs up or signs in to avoid having to make more sql calls. 
-I also changed the navbar to reflect when a person is signed in
+<?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "dbproject";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if(!$conn){
+        echo 'Connection Error: ' . mysqli_connect_error();
+    }
+
+    // Gets Columns From Table Specified
+    $sql = 'SELECT Average_Rating, Distance_From_Address FROM SERVICERS';
+
+    // Stores Columns Into Variable
+    $results= mysqli_query($conn, $sql);
+
+    $HNS = mysqli_fetch_all($results, MYSQLI_ASSOC);
+
+    // Free Database From Memory
+    mysqli_free_result($results);
+
+    // Close Connection
+    mysqli_close($conn);
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -27,44 +51,104 @@ I also changed the navbar to reflect when a person is signed in
     
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    
     <link rel="stylesheet" href="../css-javascript/css/main.css">
+    <link rel="stylesheet" href="../css-javascript/css/appointments.css">
+
     <!-- Custom styles for this template -->
   </head>
   <body>
     
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="./main.php">
-      <img src="../../Images/HNS.png" width="64" height="50"> 
-      </a>
+      <a class="navbar-brand" href="#">Home Needs</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+            
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Whats New</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="./appointments.php">Appointments</a>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="./appointments.php">Appointments</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="./search.php">Search</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
-            </li>
         </ul>
-        <button style="margin-right: 5px" class="btn btn-outline-success" type="submit">Sign In</button>
-        <button class="btn btn-outline-success" type="submit">Sign Up</button>
+        <?php if(isset($_SESSION['email'])) {?>
+          <a style="margin-right: 5px" href="./SignIn.php" class="btn btn-outline-success">Sign In</a>
+          <a href="./SignUp.php" class="btn btn-outline-success">Sign Up</a>
+        <?php } else{?>
+          <a style="margin-right: 5px" href="./SignOut.php" class="btn btn-outline-danger">Sign Out</a>
+          <a href="./profile.php" class="btn btn-outline-success">View Profile</a>
+        <?php }?>
       </div>
     </div>
   </nav>
 </header>
-      
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="container">
+<div class="floatLeft">
+<tr><table>
+<tr><td class="box3_t">
+    <?php 
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $sql = "SELECT * from appointments";
+        $result = $conn->query($sql);
+                           
+                                        
+    ?>
+    <div class="table-responsive">
+                        <table class="table table-hover">
+                        <h1>Appointments</h1>
+
+                        <thead>
+                                <tr>
+                                <th scope="col">Appointment ID</th>
+                                <th scope="col">Special Instructions</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Service</th>
+                                <th scope="col">Address Number</th>
+                                <th scope="col">Street</th>
+                                <th scope="col">Zip Code</th>
+                                <th scope="col">City</th>
+                                <th scope="col">State</th>
+
+                                </tr>
+                            </thead>
+                            <?php foreach($result as $hns){ ?>
+                                <tbody><tr>
+                                <td class="number text-center"><?php echo htmlspecialchars($hns['Appointment_ID']); ?></td>
+                                <td class="text text-right"><?php echo htmlspecialchars($hns['Special_Instructions']); ?></td>
+                                <td class="date text-right"><?php echo htmlspecialchars($hns['Date']); ?></td>
+                                <td class="time text-right"><?php echo htmlspecialchars($hns['Time']); ?></td>
+                                <td class="text text-right"><?php echo htmlspecialchars($hns['Service']); ?></td>
+                                <td class="number text-center"><?php echo htmlspecialchars($hns['Address_Number']); ?></td>
+                                <td class="text text-center"><?php echo htmlspecialchars($hns['Street']); ?></td>
+                                <td class="number text-center"><?php echo htmlspecialchars($hns['Zip_Code']); ?></td>
+                                <td class="text text-center"><?php echo htmlspecialchars($hns['City']); ?></td>
+                                <td class="text text-center"><?php echo htmlspecialchars($hns['State']); ?></td>
+
+                                </tr>
+                            <?php } ?>
+                            
+                        </tbody></table>
+                        </div> 
+<tr><td class="box3_b"></td></tr>
+</td></tr></table>
+</div>  </div>
+
   </body>
 </html>
