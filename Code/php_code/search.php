@@ -1,5 +1,11 @@
 <?php
-    $conn = mysqli_connect('localhost', 'admin', 'test1','Homes_Needs_Service');
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "dbproject";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
     if(!$conn){
         echo 'Connection Error: ' . mysqli_connect_error();
@@ -34,37 +40,35 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     </head>
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="./main.php">
-                    <img src="../../Images/HNS.png" width="64" height="50"> 
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Whats New</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="./appointments.php">Appointments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="./search.php">Search</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
-                    </ul>
-                    <button style="margin-right: 5px" class="btn btn-outline-success" type="submit">Sign In</button>
-                    <button class="btn btn-outline-success" type="submit">Sign Up</button>
-                </div>
-            </div>
-        </nav>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Home Needs</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="./appointments.php">Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./search.php">Search</a>
+            </li>
+        </ul>
+        <?php if(isset($_SESSION['email'])) {?>
+          <a style="margin-right: 5px" href="./SignIn.php" class="btn btn-outline-success">Sign In</a>
+          <a href="./SignUp.php" class="btn btn-outline-success">Sign Up</a>
+        <?php } else{?>
+          <a style="margin-right: 5px" href="./SignOut.php" class="btn btn-outline-danger">Sign Out</a>
+          <a href="./profile.php" class="btn btn-outline-success">View Profile</a>
+        <?php }?>
+      </div>
+    </div>
+  </nav>
     </header>
     <body>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -78,58 +82,37 @@
                     <div class="row">
                     <!-- BEGIN FILTERS -->
                     <div class="col-md-3">
-                        <h2 class="grid-title"><i class="fa fa-filter"></i> Filters</h2>
-                        <hr>
+        
+                        <div class="row">
+                        <!-- BEGIN ORDER RESULT -->
+                        <div class="col-sm-6">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Order by
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">Name</a></li>
+                                    <li><a class="dropdown-item" href="#">Rating</a></li>
+                                    <li><a class="dropdown-item" href="#">Distance From Address</a></li>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- END ORDER RESULT -->
                         
-                        <!-- BEGIN FILTER BY CATEGORY -->
-                        <h4>By category:</h4>
-                        <div class="checkbox">
-                        <label><input type="checkbox" class="icheck"> Application</label>
+                        <div class="col-md-6 text-right">
+                            <div class="btn-group">
+                            <button type="button" class="btn btn-default active"><i class="fa fa-list" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-default"><i class="fa fa-th" aria-hidden="true"></i></button>
+                            </div>
                         </div>
-                        <div class="checkbox">
-                        <label><input type="checkbox" class="icheck"> Design</label>
                         </div>
-                        <div class="checkbox">
-                        <label><input type="checkbox" class="icheck"> Desktop</label>
-                        </div>
-                        <div class="checkbox">
-                        <label><input type="checkbox" class="icheck"> Management</label>
-                        </div>
-                        <div class="checkbox">
-                        <label><input type="checkbox" class="icheck"> Mobile</label>
-                        </div>
+                            </div>
+                        </form>
                         <!-- END FILTER BY CATEGORY -->
+
                         
-                        <div class="padding"></div>
-                        
-                        <!-- BEGIN FILTER BY DATE -->
-                        <h4>By date:</h4>
-                        From
-                        <div class="input-group date form_date" data-date="2014-06-14T05:25:07Z" data-date-format="dd-mm-yyyy" data-link-field="dtp_input1">
-                        <input type="text" class="form-control">
-                        <a class="btn btn-default" href="#">
-                            <i class="fa fa-align-justify" title="Align Justify"></i>
-                        </a>                        </div>
-                        <input type="hidden" id="dtp_input1" value="">
-                        
-                        To
-                        <div class="input-group date form_date" data-date="2014-06-14T05:25:07Z" data-date-format="dd-mm-yyyy" data-link-field="dtp_input2">
-                        <input type="text" class="form-control">
-                        <a class="btn btn-default" href="#">
-                            <i class="fa fa-align-justify" title="Align Justify"></i>
-                        </a>                        </div>
-                        <input type="hidden" id="dtp_input2" value="">
-                        <!-- END FILTER BY DATE -->
-                        
-                        <div class="padding"></div>
-                        
-                        <!-- BEGIN FILTER BY PRICE -->
-                        <h4>By price:</h4>
-                        Between <div id="price1">$300</div> to <div id="price2">$800</div>
-                        <div class="slider-primary">
-                        <div class="slider slider-horizontal" style="width: 152px;"><div class="slider-track"><div class="slider-selection" style="left: 30%; width: 50%;"></div><div class="slider-handle round" style="left: 30%;"></div><div class="slider-handle round" style="left: 80%;"></div></div><div class="tooltip top hide" style="top: -30px; left: 50.1px;"><div class="tooltip-arrow"></div><div class="tooltip-inner">300 : 800</div></div><input type="text" class="slider" value="" data-slider-min="0" data-slider-max="1000" data-slider-step="1" data-slider-value="[300,800]" data-slider-tooltip="hide"></div>
-                        </div>
-                        <!-- END FILTER BY PRICE -->
+                       
                     </div>
                     <!-- END FILTERS -->
                     <!-- BEGIN RESULT -->
@@ -154,8 +137,7 @@
                         
                         </div>
                         <?php 
-
-                            $link = mysqli_connect('localhost', 'admin', 'test1','Homes_Needs_Service');
+                            $link = new mysqli($servername, $username, $password, $dbname);
                             if(isset($_REQUEST["search"])){
                                 // Prepare a select statement
                                 $sql = "SELECT SERVICERS.Average_Rating, SERVICERS.Distance_From_Address, SERVICES.Service
@@ -224,32 +206,7 @@
                         ?>
                         <!-- END SEARCH INPUT -->
                         
-                        <div class="padding"></div>
-                        
-                        <div class="row">
-                        <!-- BEGIN ORDER RESULT -->
-                        <div class="col-sm-6">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Order by
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="#">Name</a></li>
-                                    <li><a class="dropdown-item" href="#">Rating</a></li>
-                                    <li><a class="dropdown-item" href="#">Distance From Address</a></li>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- END ORDER RESULT -->
-                        
-                        <div class="col-md-6 text-right">
-                            <div class="btn-group">
-                            <button type="button" class="btn btn-default active"><i class="fa fa-list" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-default"><i class="fa fa-th" aria-hidden="true"></i></button>
-                            </div>
-                        </div>
-                        </div>
+                       
                         
                         <!-- BEGIN TABLE RESULT -->
                         <!-- <div class="table-responsive">
