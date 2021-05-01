@@ -38,6 +38,8 @@
         <link rel="stylesheet" href="../css-javascript/css/search.css">
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+
     </head>
     <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -80,36 +82,7 @@
                 <div class="grid search">
                 <div class="grid-body">
                     <div class="row">
-                    <!-- BEGIN FILTERS -->
-                    <div class="col-md-3">
-        
-                        <div class="row">
-                        <!-- BEGIN ORDER RESULT -->
-                        <div class="col-sm-6">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Order by
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="#">Name</a></li>
-                                    <li><a class="dropdown-item" href="#">Rating</a></li>
-                                    <li><a class="dropdown-item" href="#">Distance From Address</a></li>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- END ORDER RESULT -->
-                        
-                        <div class="col-md-6 text-right">
-                            <div class="btn-group">
-                            <button type="button" class="btn btn-default active"><i class="fa fa-list" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-default"><i class="fa fa-th" aria-hidden="true"></i></button>
-                            </div>
-                        </div>
-                        </div>
-                            </div>
-                        </form>
-                        <!-- END FILTER BY CATEGORY -->
+                    
 
                         
                        
@@ -122,7 +95,7 @@
                         <!-- BEGIN SEARCH INPUT -->
                         <div class="input-group">
                         <form action="" method="GET" name="">
-                            <table>
+                            <table >
                                 <tr>
                                     <td><input id="search" type="text" name="search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>" placeholder="Enter your search keywords" class="form-control"/></td>
                                     <td><input type="submit" name="" value="Search" /><i class="fa fa-search"></i></td>
@@ -161,11 +134,9 @@
                                         $result = mysqli_stmt_get_result($stmt);
                                         ?>
                                         <div class="table-responsive">
-                                                    <table class="table table-hover">
+                                                    <table class="sortable">
                                                         <thead>
                                                             <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col"></th>
                                                             <th scope="col">Name</th>
                                                             <th scope="col">Rating</th>
                                                             <th scope="col">Distance From Address</th>
@@ -177,15 +148,12 @@
                                             while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                                                 ?>
     
-                                                        <tbody><tr>
-                                                        <td class="number text-center">1</td>
-                                                        <td class="image"><img src="https://via.placeholder.com/400x300/FF8C00" alt=""></td>
-                                                        <td class="product"><strong><?php echo htmlspecialchars($row['Service']); ?></strong><br>This is the product description.</td>
+                                                        <tr class="item">
+                                                        <td class="product"><?php echo htmlspecialchars($row['Service']); ?></td>
                                                         <td class="rate text-right"><?php echo htmlspecialchars($row['Average_Rating']); ?></td>
                                                         <td class="price text-right"><?php echo htmlspecialchars($row['Distance_From_Address']); ?></td>
                                                         </tr>
                                                         
-                                                    </tbody>
                                     <?php
                                             }?>
                                             </table>

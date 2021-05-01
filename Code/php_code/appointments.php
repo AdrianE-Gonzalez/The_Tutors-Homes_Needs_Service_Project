@@ -53,7 +53,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     
     <link rel="stylesheet" href="../css-javascript/css/main.css">
-    <link rel="stylesheet" href="../css-javascript/css/appointments.css">
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 
     <!-- Custom styles for this template -->
   </head>
@@ -110,7 +110,7 @@
                                         
     ?>
     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="sortable">
                         <h1>Appointments</h1>
 
                         <thead>
@@ -129,7 +129,7 @@
                                 </tr>
                             </thead>
                             <?php foreach($result as $hns){ ?>
-                                <tbody><tr>
+                                <tr>
                                 <td class="number text-center"><?php echo htmlspecialchars($hns['Appointment_ID']); ?></td>
                                 <td class="text text-right"><?php echo htmlspecialchars($hns['Special_Instructions']); ?></td>
                                 <td class="date text-right"><?php echo htmlspecialchars($hns['Date']); ?></td>
@@ -144,7 +144,7 @@
                                 </tr>
                             <?php } ?>
                             
-                        </tbody></table>
+                       </table>
                         </div> 
 <tr><td class="box3_b"></td></tr>
 </td></tr></table>
