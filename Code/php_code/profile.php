@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    
     <style>
         body {
             margin: 0;
@@ -78,6 +79,38 @@
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
   </head>
+  <body>
+  <header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Home Needs</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="./appointments.php">Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./search.php">Search</a>
+            </li>
+        </ul>
+        <?php if(isset($_SESSION['email'])) {?>
+          <a style="margin-right: 5px" href="./SignIn.php" class="btn btn-outline-success">Sign In</a>
+          <a href="./SignUp.php" class="btn btn-outline-success">Sign Up</a>
+        <?php } else{?>
+          <a style="margin-right: 5px" href="./SignOut.php" class="btn btn-outline-danger">Sign Out</a>
+          <a href="./profile.php" class="btn btn-outline-success">View Profile</a>
+        <?php }?>
+      </div>
+    </div>
+  </nav>
+</header>
   <?php session_start() ?>
   <body class="text-center">
     <div class="container">
@@ -285,5 +318,6 @@
     </div>
     </div>
     </div>
-  </body>
+    </body></body>
+  
 </html>
