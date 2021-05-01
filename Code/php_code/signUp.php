@@ -14,6 +14,8 @@
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <style>
+       
+}
         .auto-width {
           width: auto;
         }
@@ -38,7 +40,7 @@
             height: 100%;
         }
         body {
-            margin: 0;
+            margin: 10rem;
             font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
             font-size: 1rem;
             font-weight: 400;
@@ -64,30 +66,37 @@
   </head>
 
   <body class="text-center">
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Home Needs</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-            </ul>
-            <?php if(isset($_SESSION['email'])) {?>
-              <a style="margin-right: 5px" href="./SignIn.php" class="btn btn-outline-succes">Sign In</a>
-              <a href="./SignUp.php" class="btn btn-outline-succes">Sign Up</a>
-            <?php } else{?>
-              <a style="margin-right: 5px" href="./SignOut.php" class="btn btn-outline-danger">Sign Out</a>
-              <a href="./profile.php" class="btn btn-outline-success">View Profile</a>
-            <?php }?>
-          </div>
-        </div>
-      </nav>
-    </header>
+  <header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Home Needs</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="./appointments.php">Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./search.php">Search</a>
+            </li>
+        </ul>
+        <?php if(isset($_SESSION['email'])) {?>
+          <a style="margin-right: 5px" href="./SignIn.php" class="btn btn-outline-success">Sign In</a>
+          <a href="./SignUp.php" class="btn btn-outline-success">Sign Up</a>
+        <?php } else{?>
+          <a style="margin-right: 5px" href="./SignOut.php" class="btn btn-outline-danger">Sign Out</a>
+          <a href="./profile.php" class="btn btn-outline-success">View Profile</a>
+        <?php }?>
+      </div>
+    </div>
+  </nav>
+</header>
     <form class="form-signin" method="post" action="./signUpController.php" enctype="multipart/form-data">
       <h1 class="h3 mb-3 font-weight-normal">Sign Up Here!</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
