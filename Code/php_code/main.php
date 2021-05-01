@@ -10,7 +10,7 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
-
+    
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -143,8 +143,8 @@
           </li>
         </ul>
         <?php if(isset($_SESSION['email'])) {?>
-          <a style="margin-right: 5px" href="./SignIn.php" class="btn btn-outline-succes">Sign In</a>
-          <a href="./SignUp.php" class="btn btn-outline-succes">Sign Up</a>
+          <a style="margin-right: 5px" href="./SignIn.php" class="btn btn-outline-success">Sign In</a>
+          <a href="./SignUp.php" class="btn btn-outline-success">Sign Up</a>
         <?php } else{?>
           <a style="margin-right: 5px" href="./SignOut.php" class="btn btn-outline-danger">Sign Out</a>
           <a href="./profile.php" class="btn btn-outline-success">View Profile</a>
@@ -164,7 +164,7 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img width="100%" height="100%" src="../../Images/home.jpg" alt="Home">
+        <img width="100%" height="100%" src="../images/home.jpg" alt="Home">
 
         <div class="container">
           <div class="carousel-caption text-start">
@@ -192,7 +192,7 @@
         <p class="lead">There are plenty of highly qualified individuals in your area to help fix your problem right now.</p>
       </div>
       <div class="col-md-5">
-      <img style="max-width: 500px; max-height: 500px" src="../../Images/womanInSuit.jpg" alt="Woman In Suit">
+      <img style="max-width: 500px; max-height: 500px" src="../images/womanInSuit.jpg" alt="Woman In Suit">
 
       </div>
     </div>
@@ -205,7 +205,7 @@
         <p class="lead">We have professionals registered on our site in areas such as book keeping, babysitting, house cleaning, and much more!</p>
       </div>
       <div class="col-md-5 order-md-1">
-      <img style="max-width: 500px; max-height: 500px" src="../../Images/plumber.jpg" alt="Plumber">
+      <img style="max-width: 500px; max-height: 500px" src="../images/plumber.jpg" alt="Plumber">
 
       </div>
     </div>
@@ -218,7 +218,7 @@
         <p class="lead">We believe that trust and piece of mind are central to business, and our verification process ensures that!</p>
       </div>
       <div class="col-md-5">
-      <img style="max-width: 500px; max-height: 500px" src="../../Images/shakingHands.jpg" alt="Shaking Hands">
+      <img style="max-width: 500px; max-height: 500px" src="../images/shakingHands.jpg" alt="Shaking Hands">
 
       </div>
     </div>
