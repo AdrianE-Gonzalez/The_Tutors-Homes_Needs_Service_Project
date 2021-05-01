@@ -113,10 +113,11 @@
                             $link = new mysqli($servername, $username, $password, $dbname);
                             if(isset($_REQUEST["search"])){
                                 // Prepare a select statement
-                                $sql = "SELECT SERVICERS.Average_Rating, SERVICERS.Distance_From_Address, SERVICES.Service
-                                        FROM SERVICERS, SERVICES, PROVIDESSERVICE
+                                $sql = "SELECT SERVICERS.Average_Rating, SERVICERS.Distance_From_Address, SERVICES.Service, USERS.First_Name, USERS.Last_Name, USERS.Phone_Number, USERS.Email
+                                        FROM SERVICERS, SERVICES, PROVIDESSERVICE,USERS
                                         WHERE SERVICES.Service LIKE ? AND
                                             PROVIDESSERVICE.Servicer_ID= SERVICERS.Servicer_ID AND
+                                            SERVICERS.User_ID= USERS.User_ID AND
                                             PROVIDESSERVICE.Service= SERVICES.Service";
                                 // Check connection
                                 if($link === false){
@@ -137,9 +138,13 @@
                                                     <table class="sortable">
                                                         <thead>
                                                             <tr>
-                                                            <th scope="col">Name</th>
-                                                            <th scope="col">Rating</th>
-                                                            <th scope="col">Distance From Address</th>
+                                                            <th scope="col"class="text text-center">First Name</th>
+                                                            <th scope="col"class="text text-center">Last Name</th>
+                                                            <th scope="col"class="text text-center">Phone Number</th>
+                                                            <th scope="col"class="text text-center">Email</th>
+                                                            <th scope="col"class="text text-center">Service Name</th>
+                                                            <th scope="col"class="text text-center">Rating</th>
+                                                            <th scope="col"class="text text-center">Distance From Address</th>
                                                             </tr>
                                                         </thead>
                                       <?php  // Check number of rows in the result set
@@ -149,9 +154,13 @@
                                                 ?>
     
                                                         <tr class="item">
-                                                        <td class="product"><?php echo htmlspecialchars($row['Service']); ?></td>
-                                                        <td class="rate text-right"><?php echo htmlspecialchars($row['Average_Rating']); ?></td>
-                                                        <td class="price text-right"><?php echo htmlspecialchars($row['Distance_From_Address']); ?></td>
+                                                        <td class="text text-center"><?php echo htmlspecialchars($row['First_Name']); ?></td>
+                                                        <td class="text text-center"><?php echo htmlspecialchars($row['Last_Name']); ?></td>
+                                                        <td class="text text-center"><?php echo htmlspecialchars($row['Phone_Number']); ?></td>
+                                                        <td class="text text-center"><?php echo htmlspecialchars($row['Email']); ?></td>
+                                                        <td class="text text-center"><?php echo htmlspecialchars($row['Service']); ?></td>
+                                                        <td class="text text-center"><?php echo htmlspecialchars($row['Average_Rating']); ?></td>
+                                                        <td class="text text-center"><?php echo htmlspecialchars($row['Distance_From_Address']); ?></td>
                                                         </tr>
                                                         
                                     <?php

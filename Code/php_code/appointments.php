@@ -115,26 +115,26 @@
 
                         <thead>
                                 <tr>
-                                <th scope="col">Appointment ID</th>
-                                <th scope="col">Special Instructions</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Service</th>
-                                <th scope="col">Address Number</th>
-                                <th scope="col">Street</th>
-                                <th scope="col">Zip Code</th>
-                                <th scope="col">City</th>
-                                <th scope="col">State</th>
+                                <th scope="col"class="text text-center">Appointment ID</th>
+                                <th scope="col"class="text text-center">Special Instructions</th>
+                                <th scope="col"class="text text-center" class="text text-center">Date</th>
+                                <th scope="col"class="text text-center">Time</th>
+                                <th scope="col"class="text text-center">Service</th>
+                                <th scope="col"class="text text-center">Address Number</th>
+                                <th scope="col"class="text text-center">Street</th>
+                                <th scope="col"class="text text-center">Zip Code</th>
+                                <th scope="col"class="text text-center">City</th>
+                                <th scope="col"class="text text-center">State</th>
 
                                 </tr>
                             </thead>
                             <?php foreach($result as $hns){ ?>
                                 <tr>
                                 <td class="number text-center"><?php echo htmlspecialchars($hns['Appointment_ID']); ?></td>
-                                <td class="text text-right"><?php echo htmlspecialchars($hns['Special_Instructions']); ?></td>
-                                <td class="date text-right"><?php echo htmlspecialchars($hns['Date']); ?></td>
-                                <td class="time text-right"><?php echo htmlspecialchars($hns['Time']); ?></td>
-                                <td class="text text-right"><?php echo htmlspecialchars($hns['Service']); ?></td>
+                                <td class="text text-center"><?php echo htmlspecialchars($hns['Special_Instructions']); ?></td>
+                                <td class="date text-center"><?php echo htmlspecialchars($hns['Date']); ?></td>
+                                <td class="time text-center"><?php echo htmlspecialchars($hns['Time']); ?></td>
+                                <td class="text text-center"><?php echo htmlspecialchars($hns['Service']); ?></td>
                                 <td class="number text-center"><?php echo htmlspecialchars($hns['Address_Number']); ?></td>
                                 <td class="text text-center"><?php echo htmlspecialchars($hns['Street']); ?></td>
                                 <td class="number text-center"><?php echo htmlspecialchars($hns['Zip_Code']); ?></td>
