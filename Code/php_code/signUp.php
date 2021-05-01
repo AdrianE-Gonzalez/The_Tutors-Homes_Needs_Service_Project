@@ -40,7 +40,7 @@
             height: 100%;
         }
         body {
-            margin: 10rem;
+            margin: 15rem;
             font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
             font-size: 1rem;
             font-weight: 400;
